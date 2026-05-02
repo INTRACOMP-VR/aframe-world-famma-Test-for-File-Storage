@@ -8,7 +8,69 @@
 		<!-- <script src="https://unpkg.com/@softeng-761-2025-team-10/aframe-inspector/dist/aframe-inspector.min.js"></script> -->
 		<script src="http://localhost:5173/vendor/aframe-inspector/aframe-inspector.js"></script>
 		
+		<script>
+			window.INTRACOMP_API_BASE_URL = "http://localhost:3000";
+		</script>
 		
+		<script>
+			// User permissions for A-Frame Inspector
+			window.AFRAME_SCENE_PERMISSIONS = {
+				userRole: "owner",
+				canEdit: true,
+				isPublic: false,
+				viewOnly: false
+			};
+			
+			// Configure A-Frame Inspector based on permissions
+			window.AFRAME_INSPECTOR_CONFIG = {
+				copyCameraPosition: true,
+				viewOnly: false
+			};
+			
+			// For viewers, inspector script is not loaded, so just provide user feedback
+			if (false) {
+				// Block keyboard shortcuts and show message
+				document.addEventListener('keydown', function(evt) {
+					const shortcutPressed = evt.keyCode === 73 && 
+						((evt.ctrlKey && evt.altKey) || evt.getModifierState('AltGraph'));
+					if (shortcutPressed) {
+						evt.preventDefault();
+						evt.stopPropagation();
+						showViewerMessage();
+						return false;
+					}
+				}, true);
+				
+				function showViewerMessage() {
+					// Create a temporary notification
+					const notification = document.createElement('div');
+					notification.style.cssText = `
+						position: fixed;
+						top: 50%;
+						left: 50%;
+						transform: translate(-50%, -50%);
+						background: rgba(255, 152, 0, 0.95);
+						color: white;
+						padding: 20px 30px;
+						border-radius: 8px;
+						font-family: Arial, sans-serif;
+						font-size: 16px;
+						z-index: 999999;
+						text-align: center;
+						box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+					`;
+					notification.innerHTML = '🔒 Inspector Not Available<br><small>You have view-only access to this scene</small>';
+					document.body.appendChild(notification);
+					
+					// Remove notification after 3 seconds
+					setTimeout(() => {
+						if (notification.parentNode) {
+							notification.parentNode.removeChild(notification);
+						}
+					}, 3000);
+				}
+			}
+		</script>
 	</head>
 	<body>
 		<a-scene>
@@ -25,14 +87,15 @@
       <a-entity name="Desert Buggy" gltf-model="https://unpkg.com/@softeng-761-2025-team-10/aframe-inspector/assets/gltf/desert_buggy.glb" position="180.72085 0 78.39458" rotation="0 0 0" scale="1.2 1.2 1.2" id="A-ENTITY-9"></a-entity>
       <a-entity name="Normal Tangent Mirror Test" gltf-model="/vendor/aframe-inspector/assets/gltf/normal_tangent_mirror_test.glb" position="0 0.47868 -3" rotation="0 0 0" scale="" id="A-ENTITY-10"></a-entity>
       <a-entity name="Avocado" gltf-model="/vendor/aframe-inspector/assets/gltf/avocado.glb" position="-1.467 2.93135 -3" rotation="0 0 0" scale="10 10 10" id="A-ENTITY-11"></a-entity>
-      <a-entity name="Animated Fox" gltf-model="/vendor/aframe-inspector/assets/gltf/animated_fox.glb" position="-0.89371 2.24754 -3" rotation="0 0 0" scale="0.37 0.37 0" id="A-ENTITY-12"></a-entity>
+      <a-entity name="Animated Fox" gltf-model="/vendor/aframe-inspector/assets/gltf/animated_fox.glb" position="-0.8244 2.24754 -3" rotation="0 0 0" scale="1.0001 1.0001 1" id="A-ENTITY-12"></a-entity>
       <a-box id="A-BOX-1" name="Cube" position="-0.46207 2.7547 -5.92428" scale="0.5 0.5 0.5" material="alphaTest: 0; depthTest: true; depthWrite: true; flatShading: false; npot: false; offset: [object Object]; opacity: 1; repeat: [object Object]; shader: standard; side: front; transparent: false; vertexColorsEnabled: false; visible: true; blending: normal; dithering: true; anisotropy: 0; ambientOcclusionMap: ; ambientOcclusionMapIntensity: 1; ambientOcclusionTextureOffset: [object Object]; ambientOcclusionTextureRepeat: [object Object]; color: #4CC3D9; displacementMap: ; displacementScale: 1; displacementBias: 0.5; displacementTextureOffset: [object Object]; displacementTextureRepeat: [object Object]; emissive: #000; emissiveIntensity: 1; envMap: ; fog: true; metalness: 0; metalnessMap: ; metalnessTextureOffset: [object Object]; metalnessTextureRepeat: [object Object]; normalMap: ; normalScale: [object Object]; normalTextureOffset: [object Object]; normalTextureRepeat: [object Object]; roughness: 0.5; roughnessMap: ; roughnessTextureOffset: [object Object]; roughnessTextureRepeat: [object Object]; sphericalEnvMap: ; src: ; wireframe: false; wireframeLinewidth: 2" geometry="buffer: true; primitive: box; skipCache: false; depth: 1; height: 1; width: 1; segmentsHeight: 1; segmentsWidth: 1; segmentsDepth: 1"></a-box>
       <a-entity name="Damaged Helmet" gltf-model="/vendor/aframe-inspector/assets/gltf/damaged_helmet.glb" position="0 1 -3" rotation="0 0 0" scale="" id="A-ENTITY-13"></a-entity>
-      <a-sky src="/api/assets/3596b16429d87f9df81cf49f482fb2681a7525370d5ecddf5857677a8fae685c.jpg" crossorigin="anonymous" id="A-SKY-1" scale="-1 1 1" material="alphaTest: 0; depthTest: true; depthWrite: true; flatShading: false; npot: true; offset: [object Object]; opacity: 1; repeat: [object Object]; shader: flat; side: back; transparent: false; vertexColorsEnabled: false; visible: true; blending: normal; dithering: true; anisotropy: 0; color: #FFF; fog: true; src: /api/assets/3596b16429d87f9df81cf49f482fb2681a7525370d5ecddf5857677a8fae685c.jpg; wireframe: false; wireframeLinewidth: 2; toneMapped: true" geometry="buffer: true; primitive: sphere; skipCache: false; radius: 500; phiLength: 360; phiStart: 0; thetaLength: 180; thetaStart: 0; segmentsHeight: 32; segmentsWidth: 64"></a-sky>
-      <a-sky id="A-SKY-2" src="/api/assets/10f2019a74e9c68f36d8555f3038e2d6e023dbf61a44fd8b5620a26ec711105e.jpg" crossorigin="anonymous" scale="-1 1 1" visible="" material="alphaTest: 0; depthTest: true; depthWrite: true; flatShading: false; npot: true; offset: [object Object]; opacity: 1; repeat: [object Object]; shader: flat; side: back; transparent: false; vertexColorsEnabled: false; visible: true; blending: normal; dithering: true; anisotropy: 0; color: #FFF; fog: true; src: /api/assets/10f2019a74e9c68f36d8555f3038e2d6e023dbf61a44fd8b5620a26ec711105e.jpg; wireframe: false; wireframeLinewidth: 2; toneMapped: true" geometry="buffer: true; primitive: sphere; skipCache: false; radius: 500; phiLength: 360; phiStart: 0; thetaLength: 180; thetaStart: 0; segmentsHeight: 32; segmentsWidth: 64"></a-sky>
-      <a-sky src="/api/assets/fc7ea9e989d42ac2c11671e3db68097d14e6f5286ac465845f04eea33257ac1e.jpg" crossorigin="anonymous" id="A-SKY-3" scale="-1 1 1" gltf-model="" visible="" material="alphaTest: 0; depthTest: true; depthWrite: true; flatShading: false; npot: true; offset: [object Object]; opacity: 1; repeat: [object Object]; shader: portal; side: back; transparent: false; vertexColorsEnabled: false; visible: true; blending: normal; dithering: true; anisotropy: 0; borderEnabled: 1; backgroundColor: red; pano: ; strokeColor: white; previewDistance: 15" geometry="buffer: true; primitive: sphere; skipCache: false; radius: 500; phiLength: 360; phiStart: 0; thetaLength: 180; thetaStart: 0; segmentsHeight: 32; segmentsWidth: 64"></a-sky>
-      <a-sky id="A-SKY-4" src="/api/assets/7453ecaa9c3e402eb6c60b1c6786739d76ecc69cfde943df2e5917db2bd019fc.jpg" crossorigin="anonymous" scale="-1 1 1" visible="" material="alphaTest: 0; depthTest: true; depthWrite: true; flatShading: false; npot: true; offset: [object Object]; opacity: 1; repeat: [object Object]; shader: flat; side: back; transparent: false; vertexColorsEnabled: false; visible: true; blending: normal; dithering: true; anisotropy: 0; color: #FFF; fog: true; src: /api/assets/7453ecaa9c3e402eb6c60b1c6786739d76ecc69cfde943df2e5917db2bd019fc.jpg; wireframe: false; wireframeLinewidth: 2; toneMapped: true" geometry="buffer: true; primitive: sphere; skipCache: false; radius: 500; phiLength: 360; phiStart: 0; thetaLength: 180; thetaStart: 0; segmentsHeight: 32; segmentsWidth: 64"></a-sky>
-			<a-plane id="ground" position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane>
+      <a-sky src="http://localhost:3000/api/assets/3596b16429d87f9df81cf49f482fb2681a7525370d5ecddf5857677a8fae685c.jpg" crossorigin="anonymous" id="A-SKY-1" scale="-1 1 1" material="alphaTest: 0; depthTest: true; depthWrite: true; flatShading: false; npot: true; offset: [object Object]; opacity: 1; repeat: [object Object]; shader: flat; side: back; transparent: false; vertexColorsEnabled: false; visible: true; blending: normal; dithering: true; anisotropy: 0; color: #FFF; fog: true; src: http://localhost:3000/api/assets/3596b16429d87f9df81cf49f482fb2681a7525370d5ecddf5857677a8fae685c.jpg; wireframe: false; wireframeLinewidth: 2; toneMapped: true" geometry="buffer: true; primitive: sphere; skipCache: false; radius: 500; phiLength: 360; phiStart: 0; thetaLength: 180; thetaStart: 0; segmentsHeight: 32; segmentsWidth: 64"></a-sky>
+      <a-sky id="A-SKY-2" src="http://localhost:3000/api/assets/10f2019a74e9c68f36d8555f3038e2d6e023dbf61a44fd8b5620a26ec711105e.jpg" crossorigin="anonymous" scale="-1 1 1" visible="" material="alphaTest: 0; depthTest: true; depthWrite: true; flatShading: false; npot: true; offset: [object Object]; opacity: 1; repeat: [object Object]; shader: flat; side: back; transparent: false; vertexColorsEnabled: false; visible: true; blending: normal; dithering: true; anisotropy: 0; color: #FFF; fog: true; src: http://localhost:3000/api/assets/10f2019a74e9c68f36d8555f3038e2d6e023dbf61a44fd8b5620a26ec711105e.jpg; wireframe: false; wireframeLinewidth: 2; toneMapped: true" geometry="buffer: true; primitive: sphere; skipCache: false; radius: 500; phiLength: 360; phiStart: 0; thetaLength: 180; thetaStart: 0; segmentsHeight: 32; segmentsWidth: 64"></a-sky>
+      <a-sky src="http://localhost:3000/api/assets/fc7ea9e989d42ac2c11671e3db68097d14e6f5286ac465845f04eea33257ac1e.jpg" crossorigin="anonymous" id="A-SKY-3" scale="-1 1 1" gltf-model="" visible="" material="alphaTest: 0; depthTest: true; depthWrite: true; flatShading: false; npot: true; offset: [object Object]; opacity: 1; repeat: [object Object]; shader: portal; side: back; transparent: false; vertexColorsEnabled: false; visible: true; blending: normal; dithering: true; anisotropy: 0; borderEnabled: 1; backgroundColor: red; pano: ; strokeColor: white; previewDistance: 15" geometry="buffer: true; primitive: sphere; skipCache: false; radius: 500; phiLength: 360; phiStart: 0; thetaLength: 180; thetaStart: 0; segmentsHeight: 32; segmentsWidth: 64"></a-sky>
+      <a-sky id="A-SKY-4" src="http://localhost:3000/api/assets/7453ecaa9c3e402eb6c60b1c6786739d76ecc69cfde943df2e5917db2bd019fc.jpg" crossorigin="anonymous" scale="-1 1 1" visible="" material="alphaTest: 0; depthTest: true; depthWrite: true; flatShading: false; npot: true; offset: [object Object]; opacity: 1; repeat: [object Object]; shader: flat; side: back; transparent: false; vertexColorsEnabled: false; visible: true; blending: normal; dithering: true; anisotropy: 0; color: #FFF; fog: true; src: http://localhost:3000/api/assets/7453ecaa9c3e402eb6c60b1c6786739d76ecc69cfde943df2e5917db2bd019fc.jpg; wireframe: false; wireframeLinewidth: 2; toneMapped: true" geometry="buffer: true; primitive: sphere; skipCache: false; radius: 500; phiLength: 360; phiStart: 0; thetaLength: 180; thetaStart: 0; segmentsHeight: 32; segmentsWidth: 64"></a-sky>
+      <a-plane id="ground" position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4" material="alphaTest: 0; depthTest: true; depthWrite: true; flatShading: false; npot: false; offset: [object Object]; opacity: 1; repeat: [object Object]; shader: standard; side: front; transparent: false; vertexColorsEnabled: false; visible: true; blending: normal; dithering: true; anisotropy: 0; ambientOcclusionMap: ; ambientOcclusionMapIntensity: 1; ambientOcclusionTextureOffset: [object Object]; ambientOcclusionTextureRepeat: [object Object]; color: #7BC8A4; displacementMap: ; displacementScale: 1; displacementBias: 0.5; displacementTextureOffset: [object Object]; displacementTextureRepeat: [object Object]; emissive: #000; emissiveIntensity: 1; envMap: ; fog: true; metalness: 0; metalnessMap: ; metalnessTextureOffset: [object Object]; metalnessTextureRepeat: [object Object]; normalMap: ; normalScale: [object Object]; normalTextureOffset: [object Object]; normalTextureRepeat: [object Object]; roughness: 0.5; roughnessMap: ; roughnessTextureOffset: [object Object]; roughnessTextureRepeat: [object Object]; sphericalEnvMap: ; src: ; wireframe: false; wireframeLinewidth: 2" geometry="buffer: true; primitive: plane; skipCache: false; height: 4; width: 4; segmentsHeight: 1; segmentsWidth: 1"></a-plane>
+			
 			
 		</a-scene>
 	</body>
